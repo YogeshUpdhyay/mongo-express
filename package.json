@@ -25,6 +25,7 @@
     "url": "git://github.com/mongo-express/mongo-express.git"
   },
   "dependencies": {
+    "axios": "^1.2.0",
     "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.20.1",
     "bson": "^4.7.0",
@@ -38,6 +39,7 @@
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
+    "fetch": "^1.1.0",
     "flat": "^5.0.2",
     "free-swig": "^1.5.1",
     "gridfs-stream": "^1.1.1",
@@ -50,6 +52,7 @@
     "mongodb-query-parser": "patch:mongodb-query-parser@npm%3A2.4.6#~/.yarn/patches/mongodb-query-parser-npm-2.4.6-234abad2fc.patch",
     "morgan": "^1.10.0",
     "nyc": "^15.1.0",
+    "openid-client": "^5.3.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {

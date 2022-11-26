@@ -8,7 +8,9 @@ let mongo = {
   // to see more databases you need to set mongodb.admin to true or add databases to the mongodb.auth list
   // It is RECOMMENDED to use connectionString instead of individual params, other options will be removed later.
   // More info here: https://docs.mongodb.com/manual/reference/connection-string/
-  connectionString: process.env.ME_CONFIG_MONGODB_SERVER ? '' : process.env.ME_CONFIG_MONGODB_URL,
+  connectionString: process.env.ME_CONFIG_MONGODB_SERVER
+    ? ''
+    : process.env.ME_CONFIG_MONGODB_URL,
   host: '127.0.0.1',
   port: '27017',
   dbName: '',
@@ -32,6 +34,10 @@ const adminUsername = 'ME_CONFIG_MONGODB_ADMINUSERNAME';
 const adminPassword = 'ME_CONFIG_MONGODB_ADMINPASSWORD';
 const dbAuthUsername = 'ME_CONFIG_MONGODB_AUTH_USERNAME';
 const dbAuthPassword = 'ME_CONFIG_MONGODB_AUTH_PASSWORD';
+const oauthAuth = 'ME_CONFIG_OAUTH';
+const oauthAuthIssuer = 'ME_CONFIG_OAUTH_ISSUER';
+const oauthAuthClientId = 'ME_CONFIG_OAUTH_CLIENT_ID';
+const oauthAuthClientSecret = 'ME_CONFIG_CLIENT_SECRET';
 
 function getFile(filePath) {
   if (typeof filePath !== 'undefined' && filePath) {
@@ -64,9 +70,13 @@ const meConfigMongodbServer = process.env.ME_CONFIG_MONGODB_SERVER
 
 function getConnectionStringFromInlineParams() {
   const infos = {
-    server: (
-      meConfigMongodbServer.length > 1 ? meConfigMongodbServer : meConfigMongodbServer[0]
-    ) ||  mongo.host || process.env.ME_CONFIG_MONGODB_SERVER || '127.0.0.1',
+    server:
+            (meConfigMongodbServer.length > 1
+              ? meConfigMongodbServer
+              : meConfigMongodbServer[0])
+            || mongo.host
+            || process.env.ME_CONFIG_MONGODB_SERVER
+            || '127.0.0.1',
     port: mongo.port || process.env.ME_CONFIG_MONGODB_PORT || '27017',
     dbName: mongo.dbName,
     username: mongo.username,
@@ -80,17 +90,24 @@ function getConnectionStringFromEnvVariables() {
   const infos = {
     // server: mongodb hostname or IP address
     // for replica set, use array of string instead
-    server: (
-      meConfigMongodbServer.length > 1 ? meConfigMongodbServer : meConfigMongodbServer[0]
-    ) || mongo.host,
+    server:
+            (meConfigMongodbServer.length > 1
+              ? meConfigMongodbServer
+              : meConfigMongodbServer[0]) || mongo.host,
     port: process.env.ME_CONFIG_MONGODB_PORT || mongo.port,
     dbName: process.env.ME_CONFIG_MONGODB_AUTH_DATABASE || mongo.dbName,
 
     // >>>> If you are using an admin mongodb account, or no admin account exists, fill out section below
     // >>>> Using an admin account allows you to view and edit all databases, and view stats
     // leave username and password empty if no admin account exists
-    username: getFileEnv(adminUsername) || getFileEnv(dbAuthUsername) || mongo.username,
-    password: getFileEnv(adminPassword) || getFileEnv(dbAuthPassword) || mongo.password,
+    username:
+            getFileEnv(adminUsername)
+            || getFileEnv(dbAuthUsername)
+            || mongo.username,
+    password:
+            getFileEnv(adminPassword)
+            || getFileEnv(dbAuthPassword)
+            || mongo.password,
   };
   const login = infos.username ? `${infos.username}:${infos.password}@` : '';
   return `mongodb://${login}${infos.server}:${infos.port}/${infos.dbName}`;
@@ -105,7 +122,8 @@ export default {
     mongo,
     getConnectionStringFromInlineParams,
     // if a connection string options such as server/port/etc are ignored
-    connectionString: mongo.connectionString || getConnectionStringFromEnvVariables(),
+    connectionString:
+            mongo.connectionString || getConnectionStringFromEnvVariables(),
 
     /** @type {import('mongodb').MongoClientOptions} */
     connectionOptions: {
@@ -113,7 +131,10 @@ export default {
       ssl: getBoolean(process.env.ME_CONFIG_MONGODB_SSL, mongo.ssl),
 
       // sslValidate: validate mongod server certificate against CA
-      sslValidate: getBoolean(process.env.ME_CONFIG_MONGODB_SSLVALIDATE, true),
+      sslValidate: getBoolean(
+        process.env.ME_CONFIG_MONGODB_SSLVALIDATE,
+        true,
+      ),
 
       // sslCA: single PEM file on disk
       sslCA: process.env.ME_CONFIG_MONGODB_CA_FILE,
@@ -163,6 +184,17 @@ export default {
     password: getFileEnv(basicAuthPassword) || 'pass',
   },
 
+  // set useOAuth to true if you want to authneticate mongo-express logins
+  // if admin is false the oauthAuth object below will be ignored
+  // this will be false unless ME_CONFIG_OAUTH
+  useOAuth: getBoolean(getFileEnv(oauthAuth)),
+
+  oauthAuth: {
+    issuer: getFileEnv(oauthAuthIssuer) || '',
+    clientId: getFileEnv(oauthAuthClientId) || '',
+    clientSecret: getFileEnv(oauthAuthClientSecret) || '',
+  },
+
   options: {
     // Display startup text on console
     console: true,
@@ -176,8 +208,8 @@ export default {
 
     // Maximum size of a single property & single row
     // Reduces the risk of sending a huge amount of data when viewing collections
-    maxPropSize: (100 * 1000), // default 100KB
-    maxRowSize: (1000 * 1000), // default 1MB
+    maxPropSize: 100 * 1000, // default 100KB
+    maxRowSize: 1000 * 1000, // default 1MB
 
     // The options below aren't being used yet
 
@@ -194,7 +226,10 @@ export default {
     readOnly: getBoolean(process.env.ME_CONFIG_OPTIONS_READONLY, false),
 
     // persistEditMode: if set to true, remain on same page after clicked on Save button
-    persistEditMode: getBoolean(process.env.ME_CONFIG_OPTIONS_PERSIST_EDIT_MODE, false),
+    persistEditMode: getBoolean(
+      process.env.ME_CONFIG_OPTIONS_PERSIST_EDIT_MODE,
+      false,
+    ),
 
     // collapsibleJSON: if set to true, jsons will be displayed collapsible
     collapsibleJSON: true,
@@ -205,7 +240,10 @@ export default {
 
     // gridFSEnabled: if gridFSEnabled is set to 'true', you will be able to manage uploaded files
     // ( ak. grids, gridFS )
-    gridFSEnabled: getBoolean(process.env.ME_CONFIG_SITE_GRIDFS_ENABLED, false),
+    gridFSEnabled: getBoolean(
+      process.env.ME_CONFIG_SITE_GRIDFS_ENABLED,
+      false,
+    ),
 
     // logger: this object will be used to initialize router logger (morgan)
     logger: {},
@@ -218,7 +256,10 @@ export default {
     noExport: false,
 
     // fullwidthLayout: if set to true an alternative page layout is used utilizing full window width
-    fullwidthLayout: getBoolean(process.env.ME_CONFIG_OPTIONS_FULLWIDTH_LAYOUT, false),
+    fullwidthLayout: getBoolean(
+      process.env.ME_CONFIG_OPTIONS_FULLWIDTH_LAYOUT,
+      false,
+    ),
 
     // noDelete: if noDelete is set to true, we won't show delete buttons
     noDelete: getBoolean(process.env.ME_CONFIG_OPTIONS_NO_DELETE, false),
