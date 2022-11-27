@@ -3390,6 +3390,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"base64url@npm:3.x.x":
+  version: 3.0.1
+  resolution: "base64url@npm:3.0.1"
+  checksum: 72e1401ffe08693524f35bc2912a519bb3bf58f8911f3c4045d8c4bb6b5112187eae2eb45db895f464debe3ff562d46b76305e7cc4de4857365c47f73442c228
+  languageName: node
+  linkType: hard
+
 "basic-auth-connect@npm:^1.0.0":
   version: 1.0.0
   resolution: "basic-auth-connect@npm:1.0.0"
@@ -7545,6 +7552,9 @@ __metadata:
     nodemon: "npm:^2.0.20"
     nyc: "npm:^15.1.0"
     openid-client: "npm:^5.3.0"
+    passport: "npm:^0.6.0"
+    passport-oauth2: "npm:^1.6.1"
+    passport-openidconnect: "npm:^0.1.1"
     pre-commit: "npm:1.2.2"
     renderjson: "patch:renderjson@npm%3A1.4.0#~/.yarn/patches/renderjson-npm-1.4.0-b198ae5f7e.patch"
     serve-favicon: "npm:^2.5.0"
@@ -7962,6 +7972,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"oauth@npm:0.9.x":
+  version: 0.9.15
+  resolution: "oauth@npm:0.9.15"
+  checksum: f87faa40ee5e3b1e48c847c7ed4c445c8fd3bd19af7846a086fa213d83f40c808ae9576e15862567a3168b33855c4eca019b836f0bb89786ad72134c6719f467
+  languageName: node
+  linkType: hard
+
 "object-assign@npm:^4.0.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -8231,6 +8248,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"passport-oauth2@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "passport-oauth2@npm:1.6.1"
+  dependencies:
+    base64url: "npm:3.x.x"
+    oauth: "npm:0.9.x"
+    passport-strategy: "npm:1.x.x"
+    uid2: "npm:0.0.x"
+    utils-merge: "npm:1.x.x"
+  checksum: 063588458ed4b938fcf07fd0269b53fba52d36c14cd47b56c119bcaeba480211b8e7d07ea0ef9791ec178e59e326c9e87cba331c00f504ea88c4a48f2327192d
+  languageName: node
+  linkType: hard
+
+"passport-openidconnect@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "passport-openidconnect@npm:0.1.1"
+  dependencies:
+    oauth: "npm:0.9.x"
+    passport-strategy: "npm:1.x.x"
+  checksum: 1599aff08fd26ec5f90646a634429e857bb6cf8e627330e19aa783f6636f36192c9f1a302c3226a9f5367a583dcdeb2ad96d6768b560e4c6456e46208b55c881
+  languageName: node
+  linkType: hard
+
+"passport-strategy@npm:1.x.x":
+  version: 1.0.0
+  resolution: "passport-strategy@npm:1.0.0"
+  checksum: 02fff0f81e4dbcfa7c1190fa1d7fe8a4e92735b7f15ce5d277d5a4cfad1806ea5d73e73eb08ef4b724702166569a57d0edc405aff50919b1953963e0fc0c8bf6
+  languageName: node
+  linkType: hard
+
+"passport@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "passport@npm:0.6.0"
+  dependencies:
+    passport-strategy: "npm:1.x.x"
+    pause: "npm:0.0.1"
+    utils-merge: "npm:^1.0.1"
+  checksum: 3a9a9d7e8a85ef5b4f93066c6932444383ceb762d00aee9b2d9a5cc5055a37041f21985a6575b44bd850876af36888516b5f5582f62c9fe84867855c08718db7
+  languageName: node
+  linkType: hard
+
 "path-exists@npm:^4.0.0":
   version: 4.0.0
   resolution: "path-exists@npm:4.0.0"
@@ -8293,6 +8351,13 @@ __metadata:
   dependencies:
     through: "npm:~2.3"
   checksum: b6248f597ca5d0156b2e11f60fca7d163a05866bf742ad27ec0eaa7a8ee4aa4284d71a6544a70000695e20979351e430c20a441e6c73882e786ac6ca52490c7b
+  languageName: node
+  linkType: hard
+
+"pause@npm:0.0.1":
+  version: 0.0.1
+  resolution: "pause@npm:0.0.1"
+  checksum: 525c498ecf93efeecafbb278e004d2a59cae9be71f66116ade87109d4e93db4384ea9a976c625a815fd0c7a02ccaa0fc5e2f78146f593c635a08aaae3bc2ba6b
   languageName: node
   linkType: hard
 
@@ -9967,6 +10032,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uid2@npm:0.0.x":
+  version: 0.0.4
+  resolution: "uid2@npm:0.0.4"
+  checksum: 30d964dc3fe565a174d6acdb9fa193fee224a6b1b0f4d5fad22dc405815d4e44805297d135138c9edef81521f32469ce585afafa3f8fed17e1e5a94102653f20
+  languageName: node
+  linkType: hard
+
 "unbox-primitive@npm:^1.0.2":
   version: 1.0.2
   resolution: "unbox-primitive@npm:1.0.2"
@@ -10086,7 +10158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"utils-merge@npm:1.0.1":
+"utils-merge@npm:1.0.1, utils-merge@npm:1.x.x, utils-merge@npm:^1.0.1":
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: b72b8d7a0f7d63a9b1ced39a44b292994111c93cf9c4da8a561e4fe0d0232af7217a53d5aae3a950fb7ab6f423baf3e0d2d7c7c33dd6c4ec78d0a3c720ee6adb
